@@ -10,7 +10,7 @@
 # Methods and Functions (KEYWORD2)
 #######################################
 
-getCertificate              KEYWORD2
+getCertificate	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
