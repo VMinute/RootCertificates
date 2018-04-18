@@ -8,13 +8,15 @@ typedef struct
   const char* certificate;
 } ROOT_CERTIFICATE;
 
-// defines used to enable/disable specific domains (may be useful to reduce code size)
-#define GOOGLE_COM
-#define GOOGLEUSERCONTENT_COM
+// Includes all supported domains (may increase code size quite a lot!)
+#ifndef USE_SPECIFIC_CERTIFICATES
+#define CERTIFICATE_GOOGLE_COM
+#define CERTIFICATE_GOOGLEUSERCONTENT_COM
+#endif
 
 // this is a table with a list of root certificates where a domain matches a certificate
 static ROOT_CERTIFICATE  certificates[]={
-#ifdef GOOGLE_COM
+#ifdef CERTIFICATE_GOOGLE_COM
   {
     "google.com",    
     "-----BEGIN CERTIFICATE-----\n"
@@ -39,7 +41,7 @@ static ROOT_CERTIFICATE  certificates[]={
     "-----END CERTIFICATE-----\n"
   },
 #endif
-#ifdef GOOGLEUSERCONTENT_COM
+#ifdef CERTIFICATE_GOOGLEUSERCONTENT_COM
   {
     "googleusercontent.com",
     "-----BEGIN CERTIFICATE-----\n"
