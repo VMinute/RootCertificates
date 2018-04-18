@@ -9,7 +9,7 @@ SSL uses certificates to ensure that your connection is encrypted and that you a
 
 Browsers and operating systems store those certificates in the filesystem or in a database, but this is not doable on Arduino. 
 
-If you connect to a single server you may store just a single root certificate as a global variable in your code. If you need to connect to multiple different servers, under different internet domains you will need to provide the right root certificate for each specific request. 
+If you connect to a single server you may store just a single root certificate as a global variable in your code. If you need to connect to multiple different servers, under different internet domains, you will need to provide the right root certificate for each specific request. 
 
 This library is designed to simplify this process. It keeps a list of domains and their root certificate and can return the right certificate from a specific URL (that may include protocol, username and password and an additional path).
 
@@ -53,7 +53,7 @@ This will not include certificates by default, you'll have to add additional def
 ```C++
 #define CERTIFICATE_GOOGLE_COM
 ```
-Unfortunately I haven't found a way to specify those defines at sketch level in a way that applies to both the sketch code and the library code.
+Unfortunately I haven't found a way to specify those defines at sketch level in a way that applies to both the sketch code and the library code so changing the header is currenly the only way to do this. The header file may be overwritten if you update the library from the IDE.
 ## Internals
 The library has a list of domains and certificates. It strips down the URL removing schema (protocol), login information and any additional path, retrieving the server name. It uses this to search inside the list, if it doesn't find a valid entry it removes the first part of the server name (so "www.google.com" becomes "google.com") and searches again.
 If no valid match is found, then a NULL is returned.
@@ -61,7 +61,7 @@ If no valid match is found, then a NULL is returned.
 To add a new certificate you need to edit [src/RootCertificates.cpp](https://github.com/VMinute/RootCertificates/blob/master/src/RootCertificates.cpp), adding a define for the new domain:
 and an entry in the certificates array, inside an **#ifdef** block:
 ```C++
-#ifdef CERTIFICCATE_GOOGLEUSERCONTENT_COM
+#ifdef CERTIFICATE_GOOGLEUSERCONTENT_COM
   {
     "googleusercontent.com",
     "-----BEGIN CERTIFICATE-----\n"
