@@ -112,8 +112,8 @@ const char* getCertificate(const char* url)
   {
     ROOT_CERTIFICATE* c;
     
-    Serial.print("Searching certificate for domain:");
-    Serial.println(p);
+    //Serial.print("Searching certificate for domain:");
+    //Serial.println(p);
         
     for (c=certificates;c->domain!=NULL;c++)
     {
